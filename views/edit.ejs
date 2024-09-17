@@ -1,0 +1,31 @@
+<%- include('partials/header.ejs') %>
+
+<div class="container">
+    <% if (locals.errorMessage) { %>
+    <div class="alert alert-danger" role="alert">
+        <%= errorMessage %>
+    </div>
+    <% } %>
+    <% if (locals.successMessage) { %>
+    <div class="alert alert-success" role="alert">
+        <%= successMessage %>
+    </div>
+    <% } %>
+    <form action="/edit" method="POST">
+        <input type="hidden" id="id" name="id" value="<%= post.id %>">
+        <div class="mb-3">
+            <label for="title" class="form-label">Title</label>
+            <input type="text" class="form-control" id="title" name="title" placeholder="This is a post title" value="<%= post.title %>">
+        </div>
+        <div class="mb-3">
+            <label for="body" class="form-label">Body</label>
+            <textarea class="form-control" id="body" name="body" rows="3"><%- post.body.replace(/<br\s*[\/]?>/gi, '\r\n') %></textarea>
+        </div>
+        <div class="mb-3 d-flex justify-content-between">
+            <a href="/delete/<%= post.id %>" class="btn btn-danger">Delete</a>
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </div>
+    </form>
+</div>
+
+<%- include('partials/footer.ejs') %>
